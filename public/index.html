@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Math Toolkit</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, var(--primary), var(--primary-light));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.15) 0%, transparent 20%);
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(26, 26, 46, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: var(--gradient);
+      opacity: 0.1;
+      z-index: -1;
+      animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 2.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    .tool-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+    }
+    
+    .tool-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: white;
+    }
+    
+    .tool-title svg {
+      margin-right: 10px;
+      width: 24px;
+      height: 24px;
+      fill: var(--accent);
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    input[type="text"]::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+    }
+    
+    button {
+      padding: 14px 25px;
+      border: none;
+      background: var(--gradient);
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .result {
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      margin-top: 15px;
+      font-size: 1rem;
+      border-left: 4px solid var(--accent);
+      animation: fadeIn 0.5s ease;
+      color: white;
+    }
+    
+    .success {
+      color: #4cc9f0;
+    }
+    
+    .error {
+      color: #f72585;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nexus Math Toolkit</h1>
+    
+    <div class="tool-card">
+      <div class="tool-title">
+        <svg viewBox="0 0 24 24">
+          <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M9,7H15V9H11V11H15V13H11V15H15V17H9V7Z"/>
+        </svg>
+        Palindrome Validator
+      </div>
+      <div class="input-group">
+        <input type="text" id="palindromeInput" placeholder="Enter text or number">
+        <button onclick="checkPalindrome()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          Validate
+        </button>
+      </div>
+      <div id="palindromeResult" class="result"></div>
+    </div>
+    
+    <div class="tool-card">
+      <div class="tool-title">
+        <svg viewBox="0 0 24 24">
+          <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+        </svg>
+        Fibonacci Generator
+      </div>
+      <div class="input-group">
+        <input type="text" id="fibonacciInput" placeholder="Enter sequence length">
+        <button onclick="generateFibonacci()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2H3v10h10V2zM3 22h10V12H3v10zM21 2h-8v6h8V2zM13 16h8v6h-8v-6z"/>
+          </svg>
+          Generate
+        </button>
+      </div>
+      <div id="fibonacciResult" class="result"></div>
+    </div>
+    
+    <div class="tool-card">
+      <div class="tool-title">
+        <svg viewBox="0 0 24 24">
+          <path d="M18.5 2H5.5C4.67 2 4 2.67 4 3.5V20.5C4 21.33 4.67 22 5.5 22H18.5C19.33 22 20 21.33 20 20.5V3.5C20 2.67 19.33 2 18.5 2M6 4H18V8H6V4M6 10H10V14H6V10M12 10H18V14H12V10M6 16H12V20H6V16M14 16H18V20H14V16Z"/>
+        </svg>
+        Factorial Calculator
+      </div>
+      <div class="input-group">
+        <input type="text" id="factorialInput" placeholder="Enter a number">
+        <button onclick="calculateFactorial()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          Calculate
+        </button>
+      </div>
+      <div id="factorialResult" class="result"></div>
+    </div>
+    
+    <footer>
+      Nexus Math Toolkit &copy; 2023 | Advanced Number Utilities
+    </footer>
+  </div>
+
+  <div class="particles" id="particles"></div>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 5 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+        const opacity = Math.random() * 0.3 + 0.1;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.opacity = opacity;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    // Initialize particles
+    createParticles();
+    
+    function checkPalindrome() {
+      const input = document.getElementById("palindromeInput").value.trim();
+      const resultElement = document.getElementById("palindromeResult");
+      
+      if (!input) {
+        resultElement.textContent = "Please enter a value to check";
+        resultElement.className = "result error";
+        return;
+      }
+      
+      const cleaned = input.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const reversed = cleaned.split('').reverse().join('');
+      
+      if (cleaned === reversed) {
+        resultElement.innerHTML = `<span class="success">✓ Palindrome!</span> "${input}" reads the same forwards and backwards.`;
+        resultElement.className = "result success";
+      } else {
+        resultElement.innerHTML = `<span class="error">✗ Not a palindrome.</span> "${input}" reversed is "${input.split('').reverse().join('')}"`;
+        resultElement.className = "result error";
+      }
+    }
+
+    function generateFibonacci() {
+      const n = parseInt(document.getElementById("fibonacciInput").value);
+      const resultElement = document.getElementById("fibonacciResult");
+      
+      if (isNaN(n) || n < 1 || n > 50) {
+        resultElement.textContent = "Please enter a valid number between 1 and 50";
+        resultElement.className = "result error";
+        return;
+      }
+      
+      let sequence = [0];
+      if (n > 1) {
+        sequence.push(1);
+        for (let i = 2; i < n; i++) {
+          sequence.push(sequence[i-1] + sequence[i-2]);
+        }
+      }
+      
+      resultElement.innerHTML = `<span class="success">Fibonacci sequence (first ${n} terms):</span><br>${sequence.join(' → ')}`;
+      resultElement.className = "result success";
+    }
+
+    function calculateFactorial() {
+      const num = parseInt(document.getElementById("factorialInput").value);
+      const resultElement = document.getElementById("factorialResult");
+      
+      if (isNaN(num) || num < 0) {
+        resultElement.textContent = "Please enter a non-negative integer";
+        resultElement.className = "result error";
+        return;
+      }
+      
+      if (num > 170) {
+        resultElement.textContent = "Number too large (maximum is 170)";
+        resultElement.className = "result error";
+        return;
+      }
+      
+      let factorial = 1;
+      let calculationSteps = [];
+      for (let i = 1; i <= num; i++) {
+        factorial *= i;
+        calculationSteps.push(i);
+      }
+      
+      const calculationString = calculationSteps.join(' × ');
+      resultElement.innerHTML = `
+        <span class="success">${num}! = ${calculationString} = ${factorial.toLocaleString()}</span>
+        ${num > 10 ? `<br><small>That's ${factorial.toString().length} digits!</small>` : ''}
+      `;
+      resultElement.className = "result success";
+    }
+    
+    // Add button click animations
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 200);
+        
+        // Ripple effect
+        const ripple = document.createElement('span');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.pointerEvents = 'none';
+        
+        this.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+    
+    // Add CSS for ripple effect
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
