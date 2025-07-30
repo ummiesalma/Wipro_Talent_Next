@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUnit Testing Framework | Ummi-E-Salma</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="snowflakes-container"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">JUnit 5 Testing Framework</h1>
+                <p class="subtitle">Master modern Java unit testing with professional techniques</p>
+            </div>
+            <div class="logo">J5</div>
+        </header>
+
+        <main class="main-content">
+            <section class="features-section">
+                <h2 class="section-title">Core Features</h2>
+                <div class="features-grid">
+                    <!-- Feature cards will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <section class="assertion-tester">
+                <h2 class="section-title">Assertion Tester</h2>
+                <div class="tester-container">
+                    <div class="input-group">
+                        <textarea id="assertion-input" class="assertion-field" placeholder="Enter your JUnit assertion (e.g., assertEquals(5, add(2, 3))"></textarea>
+                        <div class="button-group">
+                            <button id="test-assertion" class="btn-primary">Test Assertion</button>
+                            <button id="clear-assertion" class="btn-secondary">Clear</button>
+                        </div>
+                    </div>
+                    <div id="assertion-result" class="result-container"></div>
+                    <div class="test-cases">
+                        <h3>Try these test cases:</h3>
+                        <ul class="test-case-list">
+                            <li><code>assertEquals(4, Math.addExact(2, 2))</code></li>
+                            <li><code>assertTrue("JUnit".length() > 3)</code></li>
+                            <li><code>assertNotNull(new Object())</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-hints">0</div>
+                    <div class="stat-label">Hints Viewed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-tests">0</div>
+                    <div class="stat-label">Tests Run</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="success-rate">100%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Designed and developed by <strong>Ummi-E-Salma</strong></p>
+            <p class="copyright">© 2023 JUnit Learning Portal. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
