@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+
+// Read only region start
+class UserMainCode
+{
+    public long nthFibonacci(int input){
+        // Read only region end
+        // Write code here...
+        if (input == 1) {
+            return 0;
+        }
+        if (input == 2) {
+            return 1;
+        }
+        
+        long a = 0, b = 1, c = 0;
+        for (int i = 3; i <= input; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return c;
+    }
+}

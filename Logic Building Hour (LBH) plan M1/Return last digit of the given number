@@ -1,0 +1,10 @@
+#include<stdio.h>
+#include<string.h>
+// Read only region start
+int lastDigitoF(int input1)
+{
+    // Read only region end
+    // Write code here
+    int lastDigit = input1 % 10;
+    return lastDigit < 0 ? -lastDigit : lastDigit;
+}

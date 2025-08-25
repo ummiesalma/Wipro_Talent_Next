@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<string.h>
+// Read only region start
+int isEven(int input1)
+{
+    // Read only region end
+    // Write code here
+    if(input1 % 2 == 0) {
+        return 2;
+    } else {
+        return 1;
+    }
+}

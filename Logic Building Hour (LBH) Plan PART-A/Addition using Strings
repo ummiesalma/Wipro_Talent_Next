@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public String addNumberStrings(String input1, String input2) {
+        // Make sure input1 is the longer string to simplify processing
+        if (input1.length() < input2.length()) {
+            String temp = input1;
+            input1 = input2;
+            input2 = temp;
+        }
+        
+        int len1 = input1.length();
+        int len2 = input2.length();
+        StringBuilder result = new StringBuilder();
+        int carry = 0;
+        
+        // Process digits from right to left
+        for (int i = 0; i < len1; i++) {
+            // Get digits from each string (0 if shorter string is exhausted)
+            int digit1 = input1.charAt(len1 - 1 - i) - '0';
+            int digit2 = (i < len2) ? input2.charAt(len2 - 1 - i) - '0' : 0;
+            
+            // Calculate sum and carry
+            int sum = digit1 + digit2 + carry;
+            carry = sum / 10;
+            result.append(sum % 10);
+        }
+        
+        // If there's any remaining carry, add it
+        if (carry > 0) {
+            result.append(carry);
+        }
+        
+        // The result is currently reversed, so reverse it back
+        return result.reverse().toString();
+    }
+}

@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public int mostFrequentlyOccurringDigit(int[] input1, int input2) {
+        // Initialize an array to count digit occurrences (0-9)
+        int[] digitCounts = new int[10];
+        
+        // Count occurrences of each digit in all numbers
+        for (int num : input1) {
+            // Handle negative numbers by taking absolute value
+            int n = Math.abs(num);
+            // Special case for 0
+            if (n == 0) {
+                digitCounts[0]++;
+                continue;
+            }
+            // Extract each digit
+            while (n > 0) {
+                int digit = n % 10;
+                digitCounts[digit]++;
+                n /= 10;
+            }
+        }
+        
+        // Find the digit with maximum occurrence
+        int maxCount = -1;
+        int resultDigit = -1;
+        
+        for (int i = 0; i < 10; i++) {
+            if (digitCounts[i] > maxCount) {
+                maxCount = digitCounts[i];
+                resultDigit = i;
+            } else if (digitCounts[i] == maxCount && i > resultDigit) {
+                // In case of tie, choose larger digit
+                resultDigit = i;
+            }
+        }
+        
+        return resultDigit;
+    }
+}

@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<string.h>
+
+int allDigitsCount(int input) {
+    // Handle 0 case (though assumption says input >=1)
+    if (input == 0) return 1;
+    
+    int count = 0;
+    
+    // Count digits by repeatedly dividing by 10
+    while (input != 0) {
+        input /= 10;
+        count++;
+    }
+    
+    return count;
+}

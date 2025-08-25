@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdbool.h>
+
+int EvenOddDigitsSum(int input1, char* input2) {
+    int sum = 0;
+    bool isEvenMode = strcmp(input2, "even") == 0;
+    
+    while (input1 > 0) {
+        int digit = input1 % 10;  // Get last digit
+        
+        if ((isEvenMode && digit % 2 == 0) ||  // Check for even mode and even digit
+            (!isEvenMode && digit % 2 != 0)) { // Or odd mode and odd digit
+            sum += digit;
+        }
+        
+        input1 /= 10;  // Remove last digit
+    }
+    
+    return sum;
+}

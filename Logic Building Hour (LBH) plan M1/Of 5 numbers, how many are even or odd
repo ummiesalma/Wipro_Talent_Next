@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<string.h>
+
+// Read only region start
+int countEvenOdd(int input1, int input2, int input3, int input4, int input5, char* input6)
+{
+    // Read only region end
+    int count = 0;
+    int checkEven = 0; // 0 for odd, 1 for even
+    
+    // Determine if we should count even or odd numbers
+    if (strcmp(input6, "even") == 0) {
+        checkEven = 1;
+    } else if (strcmp(input6, "odd") == 0) {
+        checkEven = 0;
+    } else {
+        // Invalid input, return -1
+        return -1;
+    }
+    
+    // Check each number
+    if (checkEven) {
+        if (input1 % 2 == 0) count++;
+        if (input2 % 2 == 0) count++;
+        if (input3 % 2 == 0) count++;
+        if (input4 % 2 == 0) count++;
+        if (input5 % 2 == 0) count++;
+    } else {
+        if (input1 % 2 != 0) count++;
+        if (input2 % 2 != 0) count++;
+        if (input3 % 2 != 0) count++;
+        if (input4 % 2 != 0) count++;
+        if (input5 % 2 != 0) count++;
+    }
+    
+    return count;
+}

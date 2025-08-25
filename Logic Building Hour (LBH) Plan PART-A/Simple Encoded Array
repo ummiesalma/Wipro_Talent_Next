@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public class Result {
+        public int output1;
+        public int output2;
+        public Result(int out1, int out2) {
+            output1 = out1;
+            output2 = out2;
+        }
+    }
+    
+    public Result findOriginalFirstAndSum(int[] input1, int input2) {
+        // Create array to store original values
+        int[] original = new int[input2];
+        
+        // Last element remains the same
+        original[input2 - 1] = input1[input2 - 1];
+        
+        // Reconstruct original array from right to left
+        for (int i = input2 - 2; i >= 0; i--) {
+            original[i] = input1[i] - original[i + 1];
+        }
+        
+        // Calculate sum of original array
+        int sum = 0;
+        for (int num : original) {
+            sum += num;
+        }
+        
+        // Return Result object with first element and sum
+        return new Result(original[0], sum);
+    }
+}

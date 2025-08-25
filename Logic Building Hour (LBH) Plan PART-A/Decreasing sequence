@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public class Result {
+        public int output1;
+        public int output2;
+        public Result(int out1, int out2) {
+            output1 = out1;
+            output2 = out2;
+        }
+    }
+
+    public Result decreasingSeq(int[] input1, int input2) {
+        if (input2 <= 1) {
+            return new Result(0, 0);
+        }
+
+        int sequenceCount = 0;
+        int maxLength = 0;
+        int currentLength = 1;
+
+        for (int i = 1; i < input2; i++) {
+            if (input1[i] < input1[i-1]) {
+                currentLength++;
+            } else {
+                if (currentLength >= 2) {
+                    sequenceCount++;
+                    if (currentLength > maxLength) {
+                        maxLength = currentLength;
+                    }
+                }
+                currentLength = 1;
+            }
+        }
+
+        // Check if the last sequence was decreasing
+        if (currentLength >= 2) {
+            sequenceCount++;
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
+
+        return new Result(sequenceCount, maxLength);
+    }
+}

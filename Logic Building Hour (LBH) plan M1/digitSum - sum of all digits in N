@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public int digitSum(int input1) {
+        boolean isNegative = input1 < 0;
+        int number = Math.abs(input1);
+        
+        while (number > 9) {
+            number = calculateDigitSum(number);
+        }
+        
+        return isNegative ? -number : number;
+    }
+    
+    private int calculateDigitSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+}

@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<string.h>
+// Read only region start
+int secondLastDigitoF(int input1)
+{
+    // Read only region end
+    // Write code here
+    // Handle single digit case
+    if(input1 >= -9 && input1 <= 9) {
+        return -1;
+    }
+    
+    // Get absolute value and remove last digit
+    int num = input1 < 0 ? -input1 : input1;
+    num = num / 10;  // Remove last digit
+    
+    // Get second last digit
+    int secondLast = num % 10;
+    
+    return secondLast;
+}

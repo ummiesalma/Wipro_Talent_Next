@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public int sumOfSumsOfDigits(int input1) {
+        // Convert the number to a string to process each digit
+        String numStr = Integer.toString(input1);
+        int totalSum = 0;
+        
+        for (int i = 0; i < numStr.length(); i++) {
+            int currentSum = 0;
+            // Sum digits from current position to end
+            for (int j = i; j < numStr.length(); j++) {
+                currentSum += Character.getNumericValue(numStr.charAt(j));
+            }
+            totalSum += currentSum;
+        }
+        
+        return totalSum;
+    }
+}

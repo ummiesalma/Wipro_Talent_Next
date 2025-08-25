@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<string.h>
+
+// Read only region start
+int isPrime(int input1)
+{
+    // Read only region end
+    // Write code here
+    if (input1 < 2) return 1;  // Handle edge case
+    
+    for (int i = 2; i * i <= input1; i++) {
+        if (input1 % i == 0) {
+            return 1;  // Not prime
+        }
+    }
+    return 2;  // Prime
+}

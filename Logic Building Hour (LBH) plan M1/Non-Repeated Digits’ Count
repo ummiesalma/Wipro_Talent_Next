@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+
+int nonRepeatDigitCount(int input) {
+    int digitCount[10] = {0}; // Initialize all counts to 0
+    int nonRepeatCount = 0;
+    
+    // Handle 0 case (though assumption says input >=1)
+    if (input == 0) {
+        return 1; // Single digit 0 is non-repeated
+    }
+    
+    // Count occurrences of each digit
+    while (input != 0) {
+        int digit = input % 10;
+        digitCount[digit]++;
+        input /= 10;
+    }
+    
+    // Count digits that appear exactly once
+    for (int i = 0; i < 10; i++) {
+        if (digitCount[i] == 1) {
+            nonRepeatCount++;
+        }
+    }
+    
+    return nonRepeatCount;
+}

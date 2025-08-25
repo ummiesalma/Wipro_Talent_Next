@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<string.h>
+// Read only region start
+int isOdd(int input1)
+{
+    // Read only region end
+    // Write code here
+    if(input1 % 2 != 0) {
+        return 2;  // number is odd
+    } else {
+        return 1;  // number is even (including zero)
+    }
+}

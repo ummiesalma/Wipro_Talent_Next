@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+class UserMainCode {
+    public int sumOfPowerOfDigits(int input1) {
+        // Convert the number to a string to process each digit
+        String numStr = Integer.toString(input1);
+        int sum = 0;
+        
+        for (int i = 0; i < numStr.length(); i++) {
+            int currentDigit = Character.getNumericValue(numStr.charAt(i));
+            int power;
+            
+            // For the last digit, power is 0
+            if (i == numStr.length() - 1) {
+                power = 0;
+            } else {
+                power = Character.getNumericValue(numStr.charAt(i + 1));
+            }
+            
+            // Calculate current digit raised to power and add to sum
+            sum += (int) Math.pow(currentDigit, power);
+        }
+        
+        return sum;
+    }
+}
